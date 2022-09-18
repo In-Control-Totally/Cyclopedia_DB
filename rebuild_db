@@ -1,4 +1,11 @@
 #!/bin/bash
+
+read -p 'Enter DB root Pass: ' sql_root_pass_a
+sql_root_pass=$sql_root_pass_a
 docker stop cyclopedia_db_dev
-docker build --build-arg sql_root=123 -t cyclopedia_db:dev .
+docker build \
+--build-arg sql_root=$sql_root_pass \
+--build-arg host=cyclopedia-dev \
+--build-arg domain=goldenrivet.xyz \
+-t cyclopedia_db:dev .
 docker run -d --rm --name cyclopedia_db_dev -p 32769:3306 cyclopedia_db:dev
